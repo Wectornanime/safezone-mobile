@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from '@expo/vector-icons/Ionicons'
 
-import Home from "../screens/Home";
+import StackRouter from "./stack.router";
 import Settings from "../screens/Settings";
 
 const Tab = createBottomTabNavigator();
@@ -11,7 +11,7 @@ export default function TabRouter() {
         <Tab.Navigator screenOptions={{ headerShown: false }}>
             <Tab.Screen
                 name="main"
-                component={Home}
+                component={StackRouter}
                 options={{
                     tabBarIcon: ({ color, size }) => <Ionicons name="home" color={color} size={size} />,
                     tabBarLabel: 'Home'
