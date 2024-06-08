@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         paddingHorizontal: 18,
+        paddingTop: 18,
     },
     areaIten: {
         gap: 5,
