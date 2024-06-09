@@ -1,7 +1,7 @@
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-export default function Alert({ route }) {
+export default function Alert({ navigation, route }) {
     return (
         <ScrollView style={styles.mainContainer}>
             <View style={styles.container}>
@@ -21,7 +21,10 @@ export default function Alert({ route }) {
                     <MaterialCommunityIcons name="emoticon-sad" size={size = 33} color={colo = '#FB6E6E'} />
                 </View>
                 <View style={styles.actionContainer}>
-                    <TouchableOpacity style={{ ...styles.actionButton, backgroundColor: '#FFF2B1' }}>
+                    <TouchableOpacity
+                        style={{ ...styles.actionButton, backgroundColor: '#FFF2B1' }}
+                        onPress={() => navigation.navigate('report')}
+                    >
                         <Text style={styles.text}>Reporte</Text>
                         <Ionicons name="megaphone" size={size = 20} />
                     </TouchableOpacity>

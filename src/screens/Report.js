@@ -1,20 +1,19 @@
-import { Ionicons } from "@expo/vector-icons";
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
-export default function Details({ route }) {
+export default function Report({ route }) {
     return (
         <ScrollView style={styles.mainContainer}>
             <View style={styles.container}>
-                <Image
-                    style={styles.areaImage}
+                <Text style={styles.title}>Descreva a situação</Text>
+                <TextInput
+                    style={styles.input}
+                    numberOfLines={5}
+                    lineBreakStrategyIOS="true"
                 />
-                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
-                    <Text style={styles.areaTitle}>Recepção</Text>
-                    <Ionicons name='alert-circle' color={color = '#FFE976'} size={size = 30} />
-                </View>
-                <Text style={styles.areaSubTitle}>Grupo IV: Ergonomia</Text>
+                <Text style={styles.title}>Adicionar mídia</Text>
+
                 <View style={styles.workersContainer}>
-                    <Text style={{ fontWeight: '600', fontSize: 20 }}>Quem trabalha aqui?</Text>
+                    <Text style={styles.title}>Pessoas relacionadas</Text>
                     <ScrollView
                         horizontal
                         style={styles.carrosel}
@@ -25,8 +24,6 @@ export default function Details({ route }) {
                             />
                             <Text style={styles.workerName}>Graça</Text>
                         </View>
-
-
                         <View style={styles.carroselItem}>
                             <Image
                                 style={styles.workerImage}
@@ -53,9 +50,13 @@ export default function Details({ route }) {
                         </View>
                     </ScrollView>
                 </View>
-                <Image
-                    style={styles.floorplaner}
-                />
+                <TouchableOpacity style={{...styles.actionButton, backgroundColor: '#B0E0AC'}}>
+                    <Text>Enviar</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={{...styles.actionButton, backgroundColor: '#FFB9B9'}}>
+                    <Text>Cancelar</Text>
+                </TouchableOpacity>
             </View>
         </ScrollView>
     )
@@ -71,19 +72,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         gap: 10,
     },
-    areaImage: {
-        height: 150,
-        width: '100%',
-        backgroundColor: 'red',
+    title: {
+        fontWeight: '600',
+        fontSize: 20
     },
-    areaTitle: {
-        fontSize: 30,
-        fontWeight: '900',
-    },
-    areaSubTitle: {
-        fontSize: 30,
-        fontWeight: '200',
-        fontStyle: 'italic',
+    input: {
+        backgroundColor: '#d9d9d9',
+        minWidth: '100%',
+        borderRadius: 5,
+        padding: 10,
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
     },
     workersContainer: {
         width: '100%',
@@ -101,9 +100,10 @@ const styles = StyleSheet.create({
         height: 60,
         backgroundColor: 'red',
     },
-    floorplaner: {
-        backgroundColor: 'red',
-        width: 300,
-        height: 300,
+    actionButton: {
+        borderRadius: 5,
+        padding: 5,
+        alignItems: 'center',
+        width: '45%',
     },
 })
