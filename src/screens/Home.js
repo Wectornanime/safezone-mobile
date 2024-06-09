@@ -23,7 +23,10 @@ export default function Home({ navigation }) {
                     >
                         <Ionicons name='alert-circle' color={color = '#94C190'} size={size = 30} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.actionButton}>
+                    <TouchableOpacity
+                        style={styles.actionButton}
+                        onPress={() => navigation.navigate('details')}
+                    >
                         <Ionicons name='help-circle' color={color = '#94C190'} size={size = 30} />
                     </TouchableOpacity>
                 </View>
