@@ -2,14 +2,16 @@ import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function Alert({ navigation, route }) {
+    const { area } = route.params;
     return (
         <ScrollView style={styles.mainContainer}>
             <View style={styles.container}>
                 <Image
                     style={styles.areaImage}
+                    source={{ uri: area.image }}
                 />
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
-                    <Text style={styles.areaTitle}>Recepção</Text>
+                    <Text style={styles.areaTitle}>{area.name}</Text>
                     <Ionicons name='alert-circle' color={color = '#FFE976'} size={size = 30} />
                 </View>
                 <Text style={styles.areaSubTitle}>Grupo IV: Ergonomia</Text>
@@ -34,6 +36,7 @@ export default function Alert({ navigation, route }) {
                     </TouchableOpacity>
                 </View>
                 <Image
+                    source={{ require: area.floorplaner }}
                     style={styles.floorplaner}
                 />
             </View>
@@ -54,7 +57,7 @@ const styles = StyleSheet.create({
     areaImage: {
         height: 150,
         width: '100%',
-        backgroundColor: 'red',
+        backgroundColor: '#d9d9d9',
     },
     areaTitle: {
         fontSize: 30,
@@ -95,7 +98,7 @@ const styles = StyleSheet.create({
         fontWeight: '500',
     },
     floorplaner: {
-        backgroundColor: 'red',
+        backgroundColor: '#d9d9d9',
         width: 300,
         height: 300,
     },

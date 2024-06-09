@@ -2,6 +2,9 @@ import { Ionicons } from '@expo/vector-icons';
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function Home({ navigation }) {
+    const data = require('../../assets/data.json');
+    const areas = data.areas;
+
     return (
         <ScrollView style={styles.container}>
             <View>
@@ -11,43 +14,29 @@ export default function Home({ navigation }) {
             <View style={{ marginVertical: 15, alignItems: 'flex-end' }}>
                 <Text style={{ fontSize: 26, fontStyle: 'italic' }}>Opp Solutions</Text>
             </View>
-            <View style={styles.areaIten}>
-                <Text style={styles.areaTitle}>Copa</Text>
-                <Image
-                    style={styles.areaImage}
-                />
-                <View style={styles.areaButton}>
-                    <TouchableOpacity
-                        style={styles.actionButton}
-                        onPress={() => navigation.navigate('alert')}
-                    >
-                        <Ionicons name='alert-circle' color={color = '#94C190'} size={size = 30} />
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={styles.actionButton}
-                        onPress={() => navigation.navigate('details')}
-                    >
-                        <Ionicons name='help-circle' color={color = '#94C190'} size={size = 30} />
-                    </TouchableOpacity>
+            {areas.map(area => (
+                <View style={styles.areaIten} key={area.id}>
+                    <Text style={styles.areaTitle}>{area.name}</Text>
+                    <Image
+                        style={styles.areaImage}
+                        source={{ require: area.image }}
+                    />
+                    <View style={styles.areaButton}>
+                        <TouchableOpacity
+                            style={styles.actionButton}
+                            onPress={() => navigation.navigate('alert', { area })}
+                        >
+                            <Ionicons name='alert-circle' color={color = '#94C190'} size={size = 30} />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.actionButton}
+                            onPress={() => navigation.navigate('details', { area })}
+                        >
+                            <Ionicons name='help-circle' color={color = '#94C190'} size={size = 30} />
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            </View>
-            <View style={styles.areaIten}>
-                <Text style={styles.areaTitle}>Recepção</Text>
-                <Image
-                    style={styles.areaImage}
-                />
-                <View style={styles.areaButton}>
-                    <TouchableOpacity
-                        style={styles.actionButton}
-                        onPress={() => navigation.navigate('alert')}
-                    >
-                        <Ionicons name='alert-circle' color={color = '#94C190'} size={size = 30} />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.actionButton}>
-                        <Ionicons name='help-circle' color={color = '#94C190'} size={size = 30} />
-                    </TouchableOpacity>
-                </View>
-            </View>
+            ))}
         </ScrollView>
     );
 }
@@ -61,6 +50,7 @@ const styles = StyleSheet.create({
     },
     areaIten: {
         gap: 5,
+        marginBottom: 15,
     },
     areaTitle: {
         fontSize: 30,
@@ -69,7 +59,7 @@ const styles = StyleSheet.create({
     areaImage: {
         height: 150,
         width: '100%',
-        backgroundColor: 'red',
+        backgroundColor: '#d9d9d9',
     },
     areaButton: {
         flexDirection: 'row',
