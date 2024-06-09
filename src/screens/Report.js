@@ -21,40 +21,45 @@ export default function Report({ route }) {
                         <View style={styles.carroselItem}>
                             <Image
                                 style={styles.workerImage}
+                                source={require('../../assets/images/profiles/graca.png')}
                             />
                             <Text style={styles.workerName}>Graça</Text>
                         </View>
                         <View style={styles.carroselItem}>
                             <Image
                                 style={styles.workerImage}
+                                source={require('../../assets/images/profiles/emma.png')}
                             />
                             <Text style={styles.workerName}>Emma</Text>
                         </View>
                         <View style={styles.carroselItem}>
                             <Image
                                 style={styles.workerImage}
+                                source={require('../../assets/images/profiles/amanda.png')}
                             />
                             <Text style={styles.workerName}>Amanda</Text>
                         </View>
                         <View style={styles.carroselItem}>
                             <Image
                                 style={styles.workerImage}
+                                source={require('../../assets/images/profiles/fernanda.png')}
                             />
                             <Text style={styles.workerName}>Fernanda</Text>
                         </View>
                         <View style={styles.carroselItem}>
                             <Image
                                 style={styles.workerImage}
+                                source={require('../../assets/images/profiles/ju.png')}
                             />
                             <Text style={styles.workerName}>Ju</Text>
                         </View>
                     </ScrollView>
                 </View>
-                <TouchableOpacity style={{...styles.actionButton, backgroundColor: '#B0E0AC'}}>
+                <TouchableOpacity style={{ ...styles.actionButton, backgroundColor: '#B0E0AC' }}>
                     <Text>Enviar</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={{...styles.actionButton, backgroundColor: '#FFB9B9'}}>
+                <TouchableOpacity style={{ ...styles.actionButton, backgroundColor: '#FFB9B9' }}>
                     <Text>Cancelar</Text>
                 </TouchableOpacity>
             </View>
@@ -98,7 +103,6 @@ const styles = StyleSheet.create({
     workerImage: {
         width: 60,
         height: 60,
-        backgroundColor: 'red',
     },
     actionButton: {
         borderRadius: 5,
