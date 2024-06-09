@@ -1,0 +1,29 @@
+{
+    "profiles": [
+        {
+            "id": 1,
+            "name": "Graça",
+            "image": "graca"
+        },
+        {
+            "id": 2,
+            "name": "Emma",
+            "image": "emma"
+        },
+        {
+            "id": 3,
+            "name": "Amanda",
+            "image": "amanda"
+        },
+        {
+            "id": 4,
+            "name": "Fernanda",
+            "image": "fernanda"
+        },
+        {
+            "id": 5,
+            "name": "Ju",
+            "image": "ju"
+        }
+    ]
+}
