@@ -30,13 +30,13 @@
         {
             "id": 1,
             "name": "Copa",
-            "image": "../../assets/images/areas/copa.png",
+            "image": "copa.png",
             "floorplaner": "../../assets/images/floorplaner/floorplaner.png"
         },
         {
             "id": 2,
             "name": "Recepcão",
-            "image": "../../assets/images/areas/recepcao.png",
+            "image": "recepcao.png",
             "floorplaner": "../../assets/images/floorplaner/floorplaner.png"
         }
     ]

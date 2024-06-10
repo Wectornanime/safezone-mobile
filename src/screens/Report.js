@@ -1,6 +1,6 @@
 import { Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
-export default function Report({ route }) {
+export default function Report({ navigation }) {
     return (
         <ScrollView style={styles.mainContainer}>
             <View style={styles.container}>
@@ -8,7 +8,7 @@ export default function Report({ route }) {
                 <TextInput
                     style={styles.input}
                     numberOfLines={5}
-                    lineBreakStrategyIOS="true"
+                    multiline={true}
                 />
                 <Text style={styles.title}>Adicionar mídia</Text>
 
@@ -59,7 +59,10 @@ export default function Report({ route }) {
                     <Text>Enviar</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={{ ...styles.actionButton, backgroundColor: '#FFB9B9' }}>
+                <TouchableOpacity
+                    style={{ ...styles.actionButton, backgroundColor: '#FFB9B9' }}
+                    onPress={() => navigation.navigate('home')}
+                >
                     <Text>Cancelar</Text>
                 </TouchableOpacity>
             </View>
@@ -88,6 +91,7 @@ const styles = StyleSheet.create({
         padding: 10,
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
+        textAlignVertical: 'top',
     },
     workersContainer: {
         width: '100%',

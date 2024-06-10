@@ -3,12 +3,17 @@ import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "rea
 
 export default function Alert({ navigation, route }) {
     const { area } = route.params;
+    const imageMap = {
+        "copa.png": require('../../assets/images/areas/copa.png'),
+        "recepcao.png": require('../../assets/images/areas/recepcao.png'),
+    };
+
     return (
         <ScrollView style={styles.mainContainer}>
             <View style={styles.container}>
                 <Image
                     style={styles.areaImage}
-                    source={{ uri: area.image }}
+                    source={imageMap[area.image]}
                 />
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
                     <Text style={styles.areaTitle}>{area.name}</Text>
@@ -36,7 +41,7 @@ export default function Alert({ navigation, route }) {
                     </TouchableOpacity>
                 </View>
                 <Image
-                    source={{ require: area.floorplaner }}
+                    source={require('../../assets/images/floorplaner/floorplaner.png')}
                     style={styles.floorplaner}
                 />
             </View>

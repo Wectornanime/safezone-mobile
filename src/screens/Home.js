@@ -4,6 +4,10 @@ import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'rea
 export default function Home({ navigation }) {
     const data = require('../../assets/data.json');
     const areas = data.areas;
+    const imageMap = {
+        "copa.png": require('../../assets/images/areas/copa.png'),
+        "recepcao.png": require('../../assets/images/areas/recepcao.png'),
+    };
 
     return (
         <ScrollView style={styles.container}>
@@ -18,8 +22,8 @@ export default function Home({ navigation }) {
                 <View style={styles.areaIten} key={area.id}>
                     <Text style={styles.areaTitle}>{area.name}</Text>
                     <Image
+                        source={imageMap[area.image]}
                         style={styles.areaImage}
-                        source={{ require: area.image }}
                     />
                     <View style={styles.areaButton}>
                         <TouchableOpacity

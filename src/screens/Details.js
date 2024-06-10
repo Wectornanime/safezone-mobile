@@ -3,12 +3,17 @@ import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 
 export default function Details({ route }) {
     const { area } = route.params;
+    const imageMap = {
+        "copa.png": require('../../assets/images/areas/copa.png'),
+        "recepcao.png": require('../../assets/images/areas/recepcao.png'),
+    };
+    
     return (
         <ScrollView style={styles.mainContainer}>
             <View style={styles.container}>
                 <Image
                     style={styles.areaImage}
-                    source={{ require: area.image }}
+                    source={imageMap[area.image]}
                 />
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
                     <Text style={styles.areaTitle}>{area.name}</Text>
@@ -60,7 +65,7 @@ export default function Details({ route }) {
                 </View>
                 <Image
                     style={styles.floorplaner}
-                    source={{ require: area.floorplaner }}
+                    source={require('../../assets/images/floorplaner/floorplaner.png')}
                 />
             </View>
         </ScrollView>
