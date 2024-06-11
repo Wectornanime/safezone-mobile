@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function Reports({ navigation }) {
     const [reports, setReports] = useState(null);
@@ -9,7 +9,7 @@ export default function Reports({ navigation }) {
     useEffect(() => {
         axios.get('http://172.26.46.161:3000/reports/report')
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 setReports(response.data);
             })
             .catch(error => {
@@ -21,7 +21,11 @@ export default function Reports({ navigation }) {
         <ScrollView style={styles.container}>
             {reports && (
                 reports.map((report, index) => (
-                    <TouchableOpacity style={styles.containerItens} key={index}>
+                    <TouchableOpacity
+                        style={styles.containerItens}
+                        key={index}
+                        onPress={() => navigation.navigate('reportsDetails', { report })}
+                    >
                         <View style={styles.texts}>
                             <View style={styles.text}>
                                 <Text style={{ fontWeight: '600', fontSize: 16 }}>Nome: </Text>
