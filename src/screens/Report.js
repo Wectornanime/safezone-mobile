@@ -39,14 +39,16 @@ export default function Report({ navigation }) {
         // Configurar os dados a serem enviados
         const data = {
             name: message,
-            email: 'tester@test.com'
+            email: 'tester@test.com',
+            longitude: location.coords.longitude,
+            latitude: location.coords.latitude,
         };
 
         // Fazer a requisição POST
         axios.post('http://192.168.0.239:3000/reports/report', data)
             .then(response => {
                 console.log(response.data);
-                Alert.alert('Sucesso', response.data.message)
+                Alert.alert('Sucesso', response.data.message);
             })
             .catch(error => {
                 console.error(error);
