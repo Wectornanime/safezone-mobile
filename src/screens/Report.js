@@ -7,6 +7,7 @@ import * as Location from 'expo-location';
 export default function Report({ navigation }) {
     const [location, setLocation] = useState(null);
     const [message, setMessage] = useState(null);
+    const [mail, setMail] = useState('tester@test.com');
     const [region, setRegion] = useState({
         latitude: 37.78825, // Default latitude
         longitude: -122.4324, // Default longitude
@@ -39,13 +40,13 @@ export default function Report({ navigation }) {
         // Configurar os dados a serem enviados
         const data = {
             name: message,
-            email: 'tester@test.com',
+            email: mail,
             longitude: location.coords.longitude,
             latitude: location.coords.latitude,
         };
 
         // Fazer a requisição POST
-        axios.post('http://192.168.0.239:3000/reports/report', data)
+        axios.post('http://172.26.46.161:3000/reports/report', data)
             .then(response => {
                 console.log(response.data);
                 Alert.alert('Sucesso', response.data.message);
@@ -68,6 +69,14 @@ export default function Report({ navigation }) {
                     value={message}
                     onChangeText={text => setMessage(text)}
                 />
+                <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
+                    <Text style={{ fontSize: 18, fontWeight: '600' }}>Email usado: </Text>
+                    <TextInput
+                        style={{ fontSize: 18, backgroundColor: '#d9d9d9d9', paddingHorizontal: 4, borderRadius: 4 }}
+                        value={mail}
+                        onChangeText={text => setMail(text)}
+                    />
+                </View>
                 {/* <Text style={styles.title}>Adicionar mídia</Text> */}
 
                 <View style={styles.workersContainer}>
