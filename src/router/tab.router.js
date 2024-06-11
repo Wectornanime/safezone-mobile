@@ -3,7 +3,7 @@ import Ionicons from '@expo/vector-icons/Ionicons'
 
 import MainStackRouter from "./stackRouters/main.stack.router";
 import Settings from "../screens/Settings";
-import Reports from "../screens/Reports";
+import ReportStackRouter from "./stackRouters/reports.stack.router";
 
 const Tab = createBottomTabNavigator();
 
@@ -27,8 +27,8 @@ export default function TabRouter() {
                 }}
             />
             <Tab.Screen
-                name="reports"
-                component={Reports}
+                name="reportsRouter"
+                component={ReportStackRouter}
                 options={{
                     tabBarIcon: ({ color, size }) => <Ionicons name="alert-circle" color={color} size={size} />,
                     tabBarLabel: 'Reports'
