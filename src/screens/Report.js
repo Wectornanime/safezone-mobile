@@ -7,7 +7,7 @@ import * as Location from 'expo-location';
 export default function Report({ navigation }) {
     const [location, setLocation] = useState(null);
     const [message, setMessage] = useState(null);
-    const [mail, setMail] = useState('tester@test.com');
+    const [mail, setMail] = useState('admin@safezone.com');
     const [region, setRegion] = useState({
         latitude: 37.78825, // Default latitude
         longitude: -122.4324, // Default longitude
