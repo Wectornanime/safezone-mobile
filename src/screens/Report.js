@@ -50,6 +50,8 @@ export default function Report({ navigation }) {
             .then(response => {
                 console.log(response.data);
                 Alert.alert('Sucesso', response.data.message);
+                setMessage('');
+                navigation.navigate('home');
             })
             .catch(error => {
                 console.error(error);
