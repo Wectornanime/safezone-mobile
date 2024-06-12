@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from "react-native";
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
+import { Ionicons } from "@expo/vector-icons";
 
 export default function Report({ navigation }) {
     const [location, setLocation] = useState(null);
@@ -150,6 +151,21 @@ export default function Report({ navigation }) {
                     </MapView>
                 )}
 
+                {!location && (
+                    <View
+                        style={{
+                            width: '100%',
+                            height: 300,
+                            backgroundColor: '#d9d9d9',
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}
+                    >
+                        <Ionicons name='warning' size={size = 80} color={color = '#FFE976'} />
+                        <Text style={{ fontSize: 16, }} >A permissão para acessar o local foi negada!</Text>
+                    </View>
+                )}
+
                 <TouchableOpacity
                     style={{ ...styles.actionButton, backgroundColor: '#B0E0AC' }}
                     onPress={handleSend}
@@ -214,6 +230,6 @@ const styles = StyleSheet.create({
     },
     map: {
         width: '100%',
-        height: 150,
+        height: 300,
     },
 });
