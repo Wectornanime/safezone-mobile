@@ -7,7 +7,7 @@ export default function Reports({ navigation }) {
     const [reports, setReports] = useState(null);
 
     useEffect(() => {
-        axios.get('http://172.26.46.161:3000/reports/report')
+        axios.get('http://192.168.0.239:3000/reports/report')
             .then(response => {
                 // console.log(response.data);
                 setReports(response.data);
@@ -24,7 +24,7 @@ export default function Reports({ navigation }) {
                     <TouchableOpacity
                         style={styles.containerItens}
                         key={index}
-                        onPress={() => navigation.navigate('reportsDetails', { report })}
+                        // onPress={() => navigation.navigate('reportsDetails', { report })}
                     >
                         <View style={styles.texts}>
                             <View style={styles.text}>
