@@ -1,12 +1,12 @@
 import { Ionicons } from '@expo/vector-icons';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Button, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function Reports({ navigation }) {
     const [reports, setReports] = useState(null);
 
-    useEffect(() => {
+    const updateList = () => {
         axios.get('http://192.168.0.239:3000/reports/report')
             .then(response => {
                 // console.log(response.data);
@@ -15,6 +15,10 @@ export default function Reports({ navigation }) {
             .catch(error => {
                 console.error(error);
             });
+    };
+
+    useEffect(() => {
+        updateList();
     }, []);
 
     return (
@@ -24,7 +28,7 @@ export default function Reports({ navigation }) {
                     <TouchableOpacity
                         style={styles.containerItens}
                         key={index}
-                        // onPress={() => navigation.navigate('reportsDetails', { report })}
+                        onPress={() => navigation.navigate('reportsDetails', { report })}
                     >
                         <View style={styles.texts}>
                             <View style={styles.text}>
@@ -40,6 +44,12 @@ export default function Reports({ navigation }) {
                     </TouchableOpacity>
                 ))
             )}
+            <View style={{ marginTop: 10, marginBottom: 25 }}>
+                <Button
+                    title='Atualizar'
+                    onPress={updateList}
+                />
+            </View>
         </ScrollView>
     );
 }
