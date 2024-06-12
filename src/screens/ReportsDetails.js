@@ -1,19 +1,50 @@
 import { useEffect, useState } from 'react';
-import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, FlatList, Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 import { Ionicons } from '@expo/vector-icons';
+import axios from 'axios';
 
 export default function ReportsDetails({ navigation, route }) {
     const { report } = route.params;
     const [errorMsg, setErrorMsg] = useState(null);
-    const [options, setOptions] = useState(["Opção 1", "Opção 2", "Opção 3"]);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [options, setOptions] = useState(["Em aberto", "Em análise", "Resolvido"]);
     const [region, setRegion] = useState({
         latitude: report.latitude, // Default latitude
         longitude: report.longitude, // Default longitude
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421
     });
+
+    const handleEdit = () => {
+        setModalVisible(true);
+    };
+
+    const handleOptionSelect = (option) => {
+        report.status = option;
+        setModalVisible(false);
+
+        const newData = {
+            name: report.name,
+            message: report.message,
+            email: report.email,
+            longitude: report.longitude,
+            latitude: report.latitude,
+            status: report.status
+        };
+
+        axios.put(`http://192.168.0.239:3000/reports/report/${report._id}`, newData)
+            .then(response => {
+                console.log(response.data);
+                Alert.alert('Dados atualizados com sucesso');
+            })
+            .catch(error => {
+                console.error(error);
+                Alert.alert('Erro ao atualizar os dados');
+            });
+
+    };
 
     useEffect(() => {
         (async () => {
@@ -37,7 +68,7 @@ export default function ReportsDetails({ navigation, route }) {
                     <Text style={{ fontSize: 18, fontWeight: '300' }}>{report.status}</Text>
                 </View>
                 <TouchableOpacity
-                    onPress={() => console.log('ok')}
+                    onPress={() => handleEdit()}
                 >
                     <Ionicons name='create' size={size = 20} />
                 </TouchableOpacity>
@@ -79,8 +110,32 @@ export default function ReportsDetails({ navigation, route }) {
                         <Text style={{ fontSize: 16, }} >{errorMsg}</Text>
                     </View>
                 )}
-
             </View>
+
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    setModalVisible(!modalVisible);
+                }}
+            >
+                <View style={styles.modalView}>
+                    <Text style={styles.modalText}>Escolha uma opção:</Text>
+                    <FlatList
+                        data={options}
+                        keyExtractor={(item) => item}
+                        renderItem={({ item }) => (
+                            <TouchableOpacity
+                                style={styles.optionButton}
+                                onPress={() => handleOptionSelect(item)}
+                            >
+                                <Text style={styles.optionText}>{item}</Text>
+                            </TouchableOpacity>
+                        )}
+                    />
+                </View>
+            </Modal>
         </ScrollView>
     );
 }
@@ -91,5 +146,35 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         paddingHorizontal: 18,
         paddingTop: 18,
+    },
+    modalView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 20,
+        backgroundColor: 'white',
+        borderRadius: 20,
+        padding: 35,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: 'center',
+        fontSize: 18,
+    },
+    optionButton: {
+        padding: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ccc',
+    },
+    optionText: {
+        fontSize: 16,
     },
 });
