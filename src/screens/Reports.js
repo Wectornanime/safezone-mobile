@@ -40,15 +40,17 @@ export default function Reports({ navigation }) {
                                 <Text style={{ fontSize: 16 }}>{report.status}</Text>
                             </View>
                         </View>
-                        <Ionicons name='chevron-forward' size={size = 22} />
+                        <Ionicons name='chevron-forward' size={size = 24} />
                     </TouchableOpacity>
                 ))
             )}
-            <View style={{ marginTop: 10, marginBottom: 25 }}>
-                <Button
-                    title='Atualizar'
+            <View style={{ marginTop: 10, marginBottom: 25, alignItems: 'center', }}>
+                <TouchableOpacity
+                    style={{ borderRadius: 5, width: 100, backgroundColor: '#B0E0AC', padding: 5, alignItems: 'center', }}
                     onPress={updateList}
-                />
+                >
+                    <Text style={{ fontSize: 16, fontWeight: '600', }}>Atualizar</Text>
+                </TouchableOpacity>
             </View>
         </ScrollView>
     );
@@ -64,7 +66,10 @@ const styles = StyleSheet.create({
     containerItens: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        alignItems: 'center',
         marginBottom: 5,
+        borderBottomColor: '#ccc',
+        borderBottomWidth: 1,
     },
     text: {
         flexDirection: 'row',
