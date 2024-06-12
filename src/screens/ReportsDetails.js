@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function ReportsDetails({ navigation, route }) {
     const { report } = route.params;
@@ -27,10 +28,19 @@ export default function ReportsDetails({ navigation, route }) {
         <ScrollView style={styles.container}>
             <Text style={{ textAlign: 'center', fontSize: 26, fontWeight: '700', marginBottom: 2 }}>{report.name}</Text>
             <Text style={{ fontSize: 18, fontWeight: '200' }}>{report.email}</Text>
-            <View style={{ flexDirection: 'row', marginVertical: 4 }}>
-                <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Status: </Text>
-                <Text style={{ fontSize: 18, fontWeight: '300' }}>{report.status}</Text>
+
+            <View style={{ flexDirection: 'row', marginVertical: 4, justifyContent: 'space-between' }}>
+                <View style={{ flexDirection: 'row' }}>
+                    <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Status: </Text>
+                    <Text style={{ fontSize: 18, fontWeight: '300' }}>{report.status}</Text>
+                </View>
+                <TouchableOpacity
+                    onPress={() => console.log('ok')}
+                >
+                    <Ionicons name='create' size={size = 20} />
+                </TouchableOpacity>
             </View>
+
             <View>
                 <Text style={{ fontSize: 22, fontWeight: '600' }}>Situação:</Text>
                 <Text lineBreakMode='true' style={{ fontSize: 16, minHeight: 70 }}>{report.message}</Text>
