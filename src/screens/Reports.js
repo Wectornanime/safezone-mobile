@@ -30,7 +30,7 @@ export default function Reports({ navigation }) {
                         key={index}
                         onPress={() => navigation.navigate('reportsDetails', { report })}
                     >
-                        <View style={styles.texts}>
+                        <View>
                             <View style={styles.text}>
                                 <Text style={{ fontWeight: '600', fontSize: 16 }}>Nome: </Text>
                                 <Text style={{ fontSize: 16 }}>{report.name}</Text>
@@ -38,6 +38,9 @@ export default function Reports({ navigation }) {
                             <View style={styles.text}>
                                 <Text style={{ fontWeight: '600', fontSize: 16 }}>Status: </Text>
                                 <Text style={{ fontSize: 16 }}>{report.status}</Text>
+                            </View>
+                            <View style={styles.text}>
+                                <Text style={{ fontWeight: '200', fontSize: 16 }}>{new Date(report.createdAt).toLocaleString()}</Text>
                             </View>
                         </View>
                         <Ionicons name='chevron-forward' size={size = 24} />
