@@ -10,6 +10,7 @@ export default function ReportsDetails({ navigation, route }) {
     const [errorMsg, setErrorMsg] = useState(null);
     const [modalVisible, setModalVisible] = useState(false);
     const [options, setOptions] = useState(["Em aberto", "Em análise", "Resolvido"]);
+    const [date, setDate] = useState(null)
     const [region, setRegion] = useState({
         latitude: report.latitude, // Default latitude
         longitude: report.longitude, // Default longitude
@@ -47,6 +48,9 @@ export default function ReportsDetails({ navigation, route }) {
     };
 
     useEffect(() => {
+        console.log(report);
+        const date = new Date(report.createdAt);
+        setDate(date.toLocaleString());
         (async () => {
             let { status } = await Location.requestForegroundPermissionsAsync();
             if (status !== 'granted') {
@@ -73,6 +77,12 @@ export default function ReportsDetails({ navigation, route }) {
                     <Ionicons name='create' size={size = 20} />
                 </TouchableOpacity>
             </View>
+            
+            <View style={{ flexDirection: 'row' }}>
+                <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Data e hora de criação: </Text>
+                <Text style={{ fontSize: 18, fontWeight: '300' }}>{date}</Text>
+            </View>
+
 
             <View>
                 <Text style={{ fontSize: 22, fontWeight: '600' }}>Situação:</Text>
