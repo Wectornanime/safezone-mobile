@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Alert, FlatList, Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, FlatList, Image, Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 import { Ionicons } from '@expo/vector-icons';
@@ -10,7 +10,7 @@ export default function ReportsDetails({ navigation, route }) {
     const [errorMsg, setErrorMsg] = useState(null);
     const [modalVisible, setModalVisible] = useState(false);
     const [options, setOptions] = useState(["Em aberto", "Em análise", "Resolvido"]);
-    const [date, setDate] = useState(null)
+    const [imageUri, setImageUri] = useState(null);
     const [region, setRegion] = useState({
         latitude: report.latitude, // Default latitude
         longitude: report.longitude, // Default longitude
@@ -48,9 +48,6 @@ export default function ReportsDetails({ navigation, route }) {
     };
 
     useEffect(() => {
-        console.log(report);
-        const date = new Date(report.createdAt);
-        setDate(date.toLocaleString());
         (async () => {
             let { status } = await Location.requestForegroundPermissionsAsync();
             if (status !== 'granted') {
@@ -77,17 +74,44 @@ export default function ReportsDetails({ navigation, route }) {
                     <Ionicons name='create' size={size = 20} />
                 </TouchableOpacity>
             </View>
-            
+
             <View style={{ flexDirection: 'row' }}>
                 <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Data e hora de criação: </Text>
-                <Text style={{ fontSize: 18, fontWeight: '300' }}>{date}</Text>
+                <Text style={{ fontSize: 18, fontWeight: '300' }}>{new Date(report.createdAt).toLocaleString()}</Text>
             </View>
-
 
             <View>
                 <Text style={{ fontSize: 22, fontWeight: '600' }}>Situação:</Text>
                 <Text lineBreakMode='true' style={{ fontSize: 16, minHeight: 70 }}>{report.message}</Text>
             </View>
+
+            <View style={{ width: '100%' }}>
+                <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Mídia:</Text>
+                <View
+                    style={{
+                        width: 200,
+                        height: 200,
+                        backgroundColor: '#d9d9d9',
+                        marginVertical: 5,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                >
+                    {!report.imageUrl && (
+                        <>
+                            <Ionicons name="alert-circle" size={size = 50} />
+                            <Text>Imagem indisponível</Text>
+                        </>
+                    )}
+                    {report.imageUrl && (
+                        <Image source={{ uri: report.imageUrl }} style={{
+                            width: '100%',
+                            height: '100%',
+                        }} />
+                    )}
+                </View>
+            </View>
+
             <View style={{ marginBottom: 15 }}>
                 <Text style={{ fontSize: 22, fontWeight: '600' }}>Mapa:</Text>
                 {!errorMsg && (
@@ -121,6 +145,7 @@ export default function ReportsDetails({ navigation, route }) {
                     </View>
                 )}
             </View>
+            <View style={{ marginBottom: 25 }} />
 
             <Modal
                 animationType="slide"

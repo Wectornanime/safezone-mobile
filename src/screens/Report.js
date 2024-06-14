@@ -168,7 +168,6 @@ export default function Report({ navigation }) {
                             <Text style={{ fontSize: 18, fontWeight: '600', color: 'red' }}>Remover imagem</Text>
                         </TouchableOpacity>
                     )}
-
                 </View>
 
                 <View style={styles.workersContainer}>
