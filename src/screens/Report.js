@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { API_URL } from '@env';
 import axios from 'axios';
 import { Alert, Image, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import MapView, { Marker } from 'react-native-maps';
@@ -84,7 +85,8 @@ export default function Report({ navigation }) {
 
         // Fazer a requisição POST
         try {
-            const response = await axios.post('http://192.168.0.239:3000/reports/report', data, {
+            const api = `${API_URL}reports/report`;
+            const response = await axios.post(api, data, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
 
