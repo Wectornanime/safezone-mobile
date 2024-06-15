@@ -19,8 +19,6 @@
 
 🔹 [Funcionalidades](#funcionalidades-️)
 
-🔹 [Deploy da Aplicação](#layout-ou-deploy-da-aplicação-)
-
 🔹 [Pré-requisitos](#pré-requisitos-)
 
 🔹 [Tarefas em aberto](#tarefas-em-aberto-)
