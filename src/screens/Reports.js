@@ -12,6 +12,7 @@ export default function Reports({ navigation }) {
         axios.get(api)
             .then(response => {
                 // console.log(response.data);
+                setReports(null);
                 setReports(response.data);
             })
             .catch(error => {
@@ -52,7 +53,7 @@ export default function Reports({ navigation }) {
             <View style={{ marginTop: 10, marginBottom: 25, alignItems: 'center', }}>
                 <TouchableOpacity
                     style={{ borderRadius: 5, width: 100, backgroundColor: '#B0E0AC', padding: 5, alignItems: 'center', }}
-                    onPress={updateList}
+                    onPress={() => updateList()}
                 >
                     <Text style={{ fontSize: 16, fontWeight: '600', }}>Atualizar</Text>
                 </TouchableOpacity>

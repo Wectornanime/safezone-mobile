@@ -46,8 +46,21 @@ export default function ReportsDetails({ navigation, route }) {
                 console.error(error);
                 Alert.alert('Erro ao atualizar os dados');
             });
-
     };
+
+    const removeDetails = () => {
+        const api = `${API_URL}reports/report/${report._id}`;
+
+        axios.delete(api)
+            .then(response => {
+                console.log(response.data);
+                Alert.alert('Reporte removido com sucesso');
+            })
+            .catch(error => {
+                console.error(error);
+                Alert.alert('Erro ao remover o reporte');
+            });
+    }
 
     useEffect(() => {
         (async () => {
@@ -147,7 +160,20 @@ export default function ReportsDetails({ navigation, route }) {
                     </View>
                 )}
             </View>
-            <View style={{ marginBottom: 25 }} />
+
+            <View style={{ marginBottom: 25, alignItems: 'center' }}>
+                <TouchableOpacity
+                    style={{
+                        alignItems: 'center',
+                        backgroundColor: '#FFB9B9',
+                        borderRadius: 5,
+                        padding: 5,
+                    }}
+                    onPress={() => removeDetails()}
+                >
+                    <Text style={{ fontSize: 16 }}>Remover reporte</Text>
+                </TouchableOpacity>
+            </View>
 
             <Modal
                 animationType="slide"
