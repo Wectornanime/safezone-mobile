@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { API_URL } from '@env';
 import axios from 'axios';
-import { Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from "react-native";
+import { Alert, Image, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
+import { Ionicons } from "@expo/vector-icons";
+import * as ImagePicker from 'expo-image-picker';
 
 export default function Report({ navigation }) {
     const [location, setLocation] = useState(null);
     const [name, setName] = useState(null);
     const [message, setMessage] = useState(null);
     const [mail, setMail] = useState('admin@safezone.com');
+    const [imageUri, setImageUri] = useState(null);
     const [region, setRegion] = useState({
         latitude: 37.78825, // Default latitude
         longitude: -122.4324, // Default longitude
@@ -35,32 +39,72 @@ export default function Report({ navigation }) {
                 longitudeDelta: 0.0421,
             });
         })();
+
+        (async () => {
+            if (Platform.OS !== 'web') {
+                const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+                if (status !== 'granted') {
+                    alert('Desculpe, precisamos da permissão para acessar a biblioteca de fotos!');
+                }
+            }
+        })();
     }, []);
 
-    const handleSend = () => {
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+
+        if (!result.canceled) {
+            setImageUri(result.assets[0].uri);
+        }
+    };
+
+    const handleSend = async () => {
         // Configurar os dados a serem enviados
-        const data = {
-            name: name,
-            message: message,
-            email: mail,
-            longitude: location.coords.longitude,
-            latitude: location.coords.latitude,
-        };
+        const data = new FormData();
+        data.append('name', name);
+        data.append('message', message);
+        data.append('email', mail);
+        data.append('longitude', location.coords.longitude);
+        data.append('latitude', location.coords.latitude);
+
+        if (imageUri) {
+            const filename = imageUri.split('/').pop();
+            const match = /\.(\w+)$/.exec(filename);
+            const type = match ? `image/${match[1]}` : `image`;
+            data.append('image', {
+                uri: imageUri,
+                name: filename,
+                type,
+            });
+        }
 
         // Fazer a requisição POST
-        axios.post('http://192.168.0.239:3000/reports/report', data)
-            .then(response => {
+        try {
+            const api = `${API_URL}reports/report`;
+            const response = await axios.post(api, data, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
+
+            if (response.status === 201) {
                 console.log(response.data);
                 Alert.alert('Sucesso', response.data.message);
                 setMessage('');
                 navigation.navigate('home');
-            })
-            .catch(error => {
+            } else {
                 console.error(error);
                 Alert.alert('Erro', 'Ocorreu um erro ao enviar os dados.');
-            });
-    };
+            }
 
+        } catch (error) {
+            console.error(error);
+            Alert.alert('Erro', 'Ocorreu um erro ao enviar os dados.');
+        };
+    };
 
     return (
         <ScrollView style={styles.mainContainer}>
@@ -89,7 +133,44 @@ export default function Report({ navigation }) {
                         onChangeText={text => setMail(text)}
                     />
                 </View>
-                {/* <Text style={styles.title}>Adicionar mídia</Text> */}
+
+                <View style={{ width: '100%' }}>
+                    <Text style={styles.title}>Adicionar mídia</Text>
+                    <TouchableOpacity
+                        style={{
+                            width: 200,
+                            height: 200,
+                            backgroundColor: '#d9d9d9',
+                            marginVertical: 5,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                        onPress={pickImage}
+                    >
+                        {!imageUri && (
+                            <Ionicons name="add-circle" size={size = 50} />
+                        )}
+                        {imageUri && (
+                            <Image source={{ uri: imageUri }} style={{
+                                width: '100%',
+                                height: 200,
+                            }} />
+                        )}
+                    </TouchableOpacity>
+                    {imageUri && (
+                        <TouchableOpacity
+                            style={{
+                                width: 200,
+
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                            }}
+                            onPress={() => setImageUri(null)}
+                        >
+                            <Text style={{ fontSize: 18, fontWeight: '600', color: 'red' }}>Remover imagem</Text>
+                        </TouchableOpacity>
+                    )}
+                </View>
 
                 <View style={styles.workersContainer}>
                     <Text style={styles.title}>Pessoas relacionadas</Text>
@@ -148,6 +229,21 @@ export default function Report({ navigation }) {
                             title="Sua Localização"
                         />
                     </MapView>
+                )}
+
+                {!location && (
+                    <View
+                        style={{
+                            width: '100%',
+                            height: 300,
+                            backgroundColor: '#d9d9d9',
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}
+                    >
+                        <Ionicons name='warning' size={size = 80} color={color = '#FFE976'} />
+                        <Text style={{ fontSize: 16, }} >A permissão para acessar o local foi negada!</Text>
+                    </View>
                 )}
 
                 <TouchableOpacity
@@ -214,6 +310,7 @@ const styles = StyleSheet.create({
     },
     map: {
         width: '100%',
-        height: 150,
+        height: 300,
     },
+
 });

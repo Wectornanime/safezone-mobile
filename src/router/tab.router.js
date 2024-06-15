@@ -9,15 +9,7 @@ const Tab = createBottomTabNavigator();
 
 export default function TabRouter() {
     return (
-        <Tab.Navigator screenOptions={{ headerShown: false }}>
-            <Tab.Screen
-                name="main"
-                component={MainStackRouter}
-                options={{
-                    tabBarIcon: ({ color, size }) => <Ionicons name="home" color={color} size={size} />,
-                    tabBarLabel: 'Home'
-                }}
-            />
+        <Tab.Navigator screenOptions={{ headerShown: false }} initialRouteName="main">
             <Tab.Screen
                 name="settings"
                 component={Settings}
@@ -26,6 +18,15 @@ export default function TabRouter() {
                     tabBarLabel: 'Settings'
                 }}
             />
+            <Tab.Screen
+                name="main"
+                component={MainStackRouter}
+                options={{
+                    tabBarIcon: ({ color, size }) => <Ionicons name="home" color={color} size={size} />,
+                    tabBarLabel: 'Home'
+                }}
+            />
+            
             <Tab.Screen
                 name="reportsRouter"
                 component={ReportStackRouter}
