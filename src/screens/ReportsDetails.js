@@ -3,10 +3,10 @@ import { Alert, FlatList, Image, Modal, ScrollView, StyleSheet, Text, TouchableO
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 import { Ionicons } from '@expo/vector-icons';
-import { API_URL } from '@env';
 import axios from 'axios';
 
 export default function ReportsDetails({ navigation, route }) {
+    const apiUrl = process.env.API_URL;
     const { report } = route.params;
     const [errorMsg, setErrorMsg] = useState(null);
     const [modalVisible, setModalVisible] = useState(false);
@@ -36,7 +36,7 @@ export default function ReportsDetails({ navigation, route }) {
             status: report.status
         };
 
-        const api = `${API_URL}reports/report/${report._id}`;
+        const api = `${apiUrl}reports/report/${report._id}`;
         axios.put(api, newData)
             .then(response => {
                 console.log(response.data);

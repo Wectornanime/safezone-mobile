@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { API_URL } from '@env';
 import axios from 'axios';
 import { Alert, Image, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import MapView, { Marker } from 'react-native-maps';
@@ -8,6 +7,7 @@ import { Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from 'expo-image-picker';
 
 export default function Report({ navigation }) {
+    const apiUrl = process.env.API_URL;
     const [location, setLocation] = useState(null);
     const [name, setName] = useState(null);
     const [message, setMessage] = useState(null);
@@ -85,7 +85,7 @@ export default function Report({ navigation }) {
 
         // Fazer a requisição POST
         try {
-            const api = `${API_URL}reports/report`;
+            const api = `${apiUrl}reports/report`;
             const response = await axios.post(api, data, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });

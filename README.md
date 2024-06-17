@@ -11,6 +11,7 @@
   <img src="https://img.shields.io/badge/Expo-000000?style=for-the-badge&logo=expo&logoColor=white" />
   <img src="https://img.shields.io/github/contributors/wectornanime/safezone-mobile.svg?style=for-the-badge" />
   <img src="https://img.shields.io/github/license/wectornanime/safezone-mobile.svg?style=for-the-badge" />
+  <img src="http://img.shields.io/static/v1?label=STATUS&message=CONCLUIDO&color=GREEN&style=for-the-badge" />
 </div>
 
 ### Tópicos
