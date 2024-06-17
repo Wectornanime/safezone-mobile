@@ -11,6 +11,7 @@
   <img src="https://img.shields.io/badge/Expo-000000?style=for-the-badge&logo=expo&logoColor=white" />
   <img src="https://img.shields.io/github/contributors/wectornanime/safezone-mobile.svg?style=for-the-badge" />
   <img src="https://img.shields.io/github/license/wectornanime/safezone-mobile.svg?style=for-the-badge" />
+  <img src="http://img.shields.io/static/v1?label=STATUS&message=CONCLUIDO&color=GREEN&style=for-the-badge" />
 </div>
 
 ### Tópicos
@@ -99,9 +100,9 @@ npm start
 #### Instale o Expo Go em seu dispositivo
 
 Para ver a aplicação rodando em seu dispositivo móvel, você precisará instalar o aplicativo `Expo Go`.
-🔹 [Google Play Store](https://play.google.com/store/apps/details?id=host.exp.exponent&hl=pt_BR)
 
-🔹 [Apple Store](https://apps.apple.com/br/app/expo-go/id982107779)
+[![](https://img.shields.io/badge/Google_Play-414141?style=for-the-badge&logo=google-play&logoColor=white)](https://play.google.com/store/apps/details?id=host.exp.exponent&hl=pt_BR)
+[![](https://img.shields.io/badge/App_Store-0D96F6?style=for-the-badge&logo=app-store&logoColor=white)](https://apps.apple.com/br/app/expo-go/id982107779)
 
 #### Abra a aplicação
 
