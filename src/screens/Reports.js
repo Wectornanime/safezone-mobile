@@ -1,14 +1,14 @@
 import { Ionicons } from '@expo/vector-icons';
-import { API_URL } from '@env';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function Reports({ navigation }) {
+    const apiUrl = process.env.API_URL;
     const [reports, setReports] = useState(null);
 
     const updateList = () => {
-        const api = `${API_URL}reports/report`;
+        const api = `${apiUrl}reports/report`;
         axios.get(api)
             .then(response => {
                 // console.log(response.data);
