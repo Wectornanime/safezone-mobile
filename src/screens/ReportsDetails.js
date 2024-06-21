@@ -49,7 +49,7 @@ export default function ReportsDetails({ navigation, route }) {
     };
 
     const removeDetails = () => {
-        const api = `${API_URL}reports/report/${report._id}`;
+        const api = `${apiUrl}reports/report/${report._id}`;
 
         axios.delete(api)
             .then(response => {
